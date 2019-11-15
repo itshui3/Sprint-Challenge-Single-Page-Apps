@@ -9,35 +9,56 @@ import Pagination from './Pagination';
 
 export default function CharacterList(props) {
   // TODO: Add useState to track data from useEffect
-  const [charPage, setCharPage] = useState("1");
-  const [displayData, setDisplayData] = useState([]);
 
+  const [pageNum, setPageNum] = useState(0);
+  const [page, setPage] = useState("1");
+
+  const [displayData, setDisplayData] = useState([]);
   const [filterData, setFilterData] = useState([]);
 
   useEffect(() => {
+
+    console.log('Initial Getting...');
+    
       axios.get(props.getUrl)
       .then( res => {
-        console.log(res.data.results);
+        console.log("Getting from " + props.getUrl);
+        console.log(res.data);
         setDisplayData(res.data.results);
+        setPageNum(res.data.info.pages);
       })
       .catch( err => {
         console.log(err.data);
       })
   }, [props.refresh]);
 
-    useEffect(() => {
+  const pageLink = e => {
+    setPage(e.target.id.toString());
+  }
 
-    }, [charPage])
+  useEffect(() => {
+    axios.get(props.getUrl + "?page=" + page)
+    .then( res => {
+      console.log("Getting from " + props.getUrl);
+      console.log(res.data);
+      setDisplayData(res.data.results);
+      setPageNum(res.data.info.pages);
+    })
+    .catch( err => {
+      console.log(err.data);
+    })
 
-    const filterWithSearch = search => {
-      setFilterData(displayData.filter( data => {
-        return data.name.toLowerCase().includes(search.toLowerCase());
-      }))
-    }
+  }, [page])
 
-    useEffect(() => {
-      filterWithSearch("");
-    }, [])
+  const filterWithSearch = search => {
+    setFilterData(displayData.filter( data => {
+      return data.name.toLowerCase().includes(search.toLowerCase());
+    }))
+  }
+
+  useEffect(() => {
+    filterWithSearch("");
+  }, [displayData])
 
   return (
     <section className="character-list">
@@ -49,7 +70,12 @@ export default function CharacterList(props) {
         ))
       }
       </Row>
-      <Pagination />
+      {
+        pageNum
+          ? <Pagination pageNum={pageNum} pageLink={pageLink} />
+          : null
+      }
+
     </section>
   );
 }

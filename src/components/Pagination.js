@@ -1,7 +1,14 @@
 import React from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-const Pages = (props) => {
+const Pages = ({pageNum, pageLink}) => {
+
+  const arr = [];
+
+  for (let i = 1; i < pageNum + 1; i++) {
+    arr.push(i);
+  }
+
   return (
     <Pagination aria-label="Page navigation example">
     <PaginationItem>
@@ -10,31 +17,18 @@ const Pages = (props) => {
       <PaginationItem>
         <PaginationLink previous href="#" />
       </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">
-          1
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">
-          2
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">
-          3
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">
-          4
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href="#">
-          5
-        </PaginationLink>
-      </PaginationItem>
+
+      {arr
+        ? arr.map(d => (
+            <PaginationItem key={d}>
+              <PaginationLink id={d} onClick={pageLink}>
+              {d}
+              </PaginationLink>
+            </PaginationItem>
+          ))
+        : null
+      }
+
       <PaginationItem>
         <PaginationLink next href="#" />
       </PaginationItem>

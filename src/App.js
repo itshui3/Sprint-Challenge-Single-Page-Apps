@@ -11,10 +11,15 @@ export default function App(props) {
   const [getUrl, setGetUrl] = useState(``);
 
   const handleSearchButton = e => {
+    props.history.push("/s");
     setGetUrl("https://rickandmortyapi.com/api/" + e.target.id);
     setRefresh(!refresh);
   }
 
+  const setUrlPage = e => {
+
+  }
+  
   return (
     <main>
       <Header />
