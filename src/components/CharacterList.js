@@ -4,14 +4,20 @@ import styled from 'styled-components';
 import {Row} from 'reactstrap';
 
 import CharacterCard from './CharacterCard';
+import SearchForm from './SearchForm';
+import Pagination from './Pagination';
 
-export default function CharacterList() {
+export default function CharacterList(props) {
   // TODO: Add useState to track data from useEffect
   const [charPage, setCharPage] = useState("1");
   const [characters, setCharacters] = useState([]);
 
+  console.log(props);
+
   useEffect(() => {
-    axios.get(`https://rickandmortyapi.com/api/character/`)
+
+    if(props.location.pathname === "/s/characters") {
+      axios.get(`https://rickandmortyapi.com/api/character/`)
       .then( res => {
         console.log(res.data.results);
         setCharacters(res.data.results);
@@ -19,11 +25,18 @@ export default function CharacterList() {
       .catch( err => {
         console.log(err.data);
       })
+    } else if (props.location.pathname === "/s/locations") {
+      axios.get(`https://rickandmortyapi.com/api/location/`)
+      .then( res => {
+        console.log(res.data.results);
+        setCharacters(res.data.results);
+      })
+      .catch( err => {
+        console.log(err.data);
+      })
+    }
 
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-
-  }, []);
+  }, [props.refresh]);
 
     useEffect(() => {
 
@@ -31,7 +44,7 @@ export default function CharacterList() {
 
   return (
     <section className="character-list">
-      <h2>TODO: `array.map()` over your state here!</h2>
+      <SearchForm />
       <Row>
       {characters && 
         characters.map( d => (
@@ -39,6 +52,7 @@ export default function CharacterList() {
         ))
       }
       </Row>
+      <Pagination />
     </section>
   );
 }
