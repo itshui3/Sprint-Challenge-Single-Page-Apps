@@ -12,19 +12,10 @@ export default function CharacterList(props) {
   const [charPage, setCharPage] = useState("1");
   const [displayData, setDisplayData] = useState([]);
 
-  const [getUrl, setGetUrl] = useState(``);
-
   useEffect(() => {
+    // it takes 2 clicks, figure out why
 
-    if(props.location.pathname === "/s/characters") {
-      setGetUrl(`https://rickandmortyapi.com/api/character/`);
-    } else if (props.location.pathname === "/s/locations") {
-      setGetUrl(`https://rickandmortyapi.com/api/location/`);
-    } else if (props.location.pathname === "/s/episodes") {
-      setGetUrl(`https://rickandmortyapi.com/api/episode/`)
-    }
-
-      axios.get(getUrl)
+      axios.get(props.getUrl)
       .then( res => {
         console.log(res.data.results);
         setDisplayData(res.data.results);
