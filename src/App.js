@@ -15,10 +15,6 @@ export default function App(props) {
     setGetUrl("https://rickandmortyapi.com/api/" + e.target.id);
     setRefresh(!refresh);
   }
-
-  const setUrlPage = e => {
-
-  }
   
   return (
     <main>

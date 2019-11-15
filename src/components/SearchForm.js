@@ -10,11 +10,6 @@ export default function SearchForm(props) {
 
   const filter = props.filterWithSearch;
 
-
-  useEffect(() => {
-    console.log(search);
-  }, [search])
-
   return (
     <section className="search-form">
       <form onSubmit={(e) => {e.preventDefault(); filter(search)}}>

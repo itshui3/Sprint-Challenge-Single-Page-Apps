@@ -10,13 +10,7 @@ const Pages = ({pageNum, pageLink}) => {
   }
 
   return (
-    <Pagination aria-label="Page navigation example">
-    <PaginationItem>
-        <PaginationLink first href="#" />
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink previous href="#" />
-      </PaginationItem>
+    <Pagination>
 
       {arr
         ? arr.map(d => (
@@ -29,12 +23,6 @@ const Pages = ({pageNum, pageLink}) => {
         : null
       }
 
-      <PaginationItem>
-        <PaginationLink next href="#" />
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink last href="#" />
-      </PaginationItem>
     </Pagination>
   );
 }
