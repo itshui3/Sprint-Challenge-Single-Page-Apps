@@ -17,7 +17,7 @@ export default function SearchForm(props) {
 
   return (
     <section className="search-form">
-      <form onSubmit={filter}>
+      <form onSubmit={(e) => {e.preventDefault(); filter(search)}}>
       <input type='text' onChange={onSearch} value={search} />
       <Button>Search!</Button>
       </form>

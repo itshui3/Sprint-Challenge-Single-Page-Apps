@@ -51,6 +51,7 @@ export default function CharacterList(props) {
   }, [page])
 
   const filterWithSearch = search => {
+    
     setFilterData(displayData.filter( data => {
       return data.name.toLowerCase().includes(search.toLowerCase());
     }))
