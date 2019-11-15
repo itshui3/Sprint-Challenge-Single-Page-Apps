@@ -10,16 +10,9 @@ export default function App(props) {
   const [refresh, setRefresh] = useState(false);
   const [getUrl, setGetUrl] = useState(``);
 
-  // if(props.location.pathname === "/s/characters") {
-  //   setGetUrl(`https://rickandmortyapi.com/api/character/`);
-  // } else if (props.location.pathname === "/s/locations") {
-  //   setGetUrl(`https://rickandmortyapi.com/api/location/`);
-  // } else if (props.location.pathname === "/s/episodes") {
-  //   setGetUrl(`https://rickandmortyapi.com/api/episode/`)
-  // }
-
   const handleSearchButton = e => {
     setGetUrl("https://rickandmortyapi.com/api/" + e.target.id);
+    setRefresh(!refresh);
   }
 
   return (
@@ -27,6 +20,9 @@ export default function App(props) {
       <Header />
       <Row>
         <Button onClick={() => {props.history.push("/")}}>Home</Button>
+
+        {/* Search Buttons */}
+
         <Button id="character" onClick={handleSearchButton}>Characters</Button>
         <Button id="location" onClick={handleSearchButton}>Locations</Button>
         <Button id="episode" onClick={handleSearchButton}>Episodes</Button>

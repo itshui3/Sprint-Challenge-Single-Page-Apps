@@ -12,9 +12,9 @@ export default function CharacterList(props) {
   const [charPage, setCharPage] = useState("1");
   const [displayData, setDisplayData] = useState([]);
 
-  useEffect(() => {
-    // it takes 2 clicks, figure out why
+  const [filterData, setFilterData] = useState([]);
 
+  useEffect(() => {
       axios.get(props.getUrl)
       .then( res => {
         console.log(res.data.results);
@@ -29,12 +29,22 @@ export default function CharacterList(props) {
 
     }, [charPage])
 
+    const filterWithSearch = search => {
+      setFilterData(displayData.filter( data => {
+        return data.name.toLowerCase().includes(search.toLowerCase());
+      }))
+    }
+
+    useEffect(() => {
+      filterWithSearch("");
+    }, [])
+
   return (
     <section className="character-list">
-      <SearchForm />
+      <SearchForm filterWithSearch={filterWithSearch} />
       <Row>
-      {displayData && 
-        displayData.map( d => (
+      {filterData && 
+        filterData.map( d => (
           <CharacterCard key={d.id} data={d} />
         ))
       }
