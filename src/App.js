@@ -15,6 +15,7 @@ export default function App(props) {
         <Button onClick={() => {props.history.push("/")}}>Home</Button>
         <Button onClick={() => {props.history.push("/s/characters"); setRefresh(!refresh);}}>Characters</Button>
         <Button onClick={() => {props.history.push("/s/locations"); setRefresh(!refresh);}}>Locations</Button>
+        <Button onClick={() => {props.history.push("/s/episodes"); setRefresh(!refresh);}}>Episodes</Button>
       </Row>
       
       <Route exact path="/" component={WelcomePage} />
